@@ -1,9 +1,9 @@
 marked.setOptions({
-    breaks: true
-  });
-  
-  const markRenderer = new marked.Renderer();
-  const loadText = `
+  breaks: true,
+});
+
+const markRenderer = new marked.Renderer();
+const loadText = `
   # Welcome to my React Markdown Previewer!
   
   ## This is a sub-heading...
@@ -47,40 +47,42 @@ marked.setOptions({
   1. And last but not least, let's not forget embedded images:
   
   ![freeCodeCamp Logo](https://cdn.freecodecamp.org/testable-projects-fcc/images/fcc_secondary.svg)
-  `
-  
-  function App() {
-    
-    // using useState hook
-    const [text, setText] = React.useState(loadText);
-    
-    return (
-      <div className = "text-center px-4">
-        <h1 className = "p-4">My Markdown Previewer</h1>
-        <textarea 
-          name = "editor" 
-          id = "editor" 
-          className = "textarea" 
-          cols = "50" 
-          rows = "10" 
-          value = {text}
-          onChange = {(e) => setText(e.target.value)}
-        ></textarea>
-        <h2 className = "mt-3">Output</h2>
-        <Preview markdown = {text} />
-      </div>
-    )
-  }
-  
-  // child functional component: Preview
-  function Preview({markdown}) {
-    return (  
-      <div id = "previewWrap" className = "text-center">
-        <div id = "preview" dangerouslySetInnerHTML = {{ __html: marked(markdown, { renderer: markRenderer }) }}>
-        </div>
-      </div>
-      
-    );
-  }
-  
-  ReactDOM.render(<App/>, document.getElementById("root"));
+  `;
+
+function App() {
+  // using useState hook
+  const [text, setText] = React.useState(loadText);
+
+  return (
+    <div className="text-center px-4">
+      <h1 className="p-4">My Markdown Previewer</h1>
+      <textarea
+        name="editor"
+        id="editor"
+        className="textarea"
+        cols="50"
+        rows="10"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      ></textarea>
+      <h2 className="mt-3">Output</h2>
+      <Preview markdown={text} />
+    </div>
+  );
+}
+
+// child functional component: Preview
+function Preview({ markdown }) {
+  return (
+    <div id="previewWrap" className="text-center">
+      <div
+        id="preview"
+        dangerouslySetInnerHTML={{
+          __html: marked(markdown, { renderer: markRenderer }),
+        }}
+      ></div>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
